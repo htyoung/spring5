@@ -1,4 +1,4 @@
-package com.hty.spring5core;
+package com.hty.spring5.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

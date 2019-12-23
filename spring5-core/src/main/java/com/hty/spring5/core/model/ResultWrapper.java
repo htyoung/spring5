@@ -1,4 +1,4 @@
-package com.hty.spring5core.model;
+package com.hty.spring5.core.model;
 
 public class ResultWrapper<T> {
     public static int SUCCESS = 0;

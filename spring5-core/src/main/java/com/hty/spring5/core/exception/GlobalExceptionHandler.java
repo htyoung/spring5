@@ -1,6 +1,6 @@
-package com.hty.spring5core.exception;
+package com.hty.spring5.core.exception;
 
-import com.hty.spring5core.model.ResultWrapper;
+import com.hty.spring5.core.model.ResultWrapper;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 

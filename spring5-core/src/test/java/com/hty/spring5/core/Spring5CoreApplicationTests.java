@@ -1,4 +1,4 @@
-package com.hty.spring5core;
+package com.hty.spring5.core;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

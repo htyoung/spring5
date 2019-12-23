@@ -1,4 +1,4 @@
-package com.hty.spring5core.config;
+package com.hty.spring5.core.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
