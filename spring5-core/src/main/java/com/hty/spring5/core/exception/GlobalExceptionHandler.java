@@ -2,6 +2,7 @@ package com.hty.spring5.core.exception;
 
 import com.hty.spring5.core.model.ResultWrapper;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 /*@RestControllerAdvice*/

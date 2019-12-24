@@ -1,18 +1,26 @@
 package com.hty.spring5.core.config;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.hty.spring5.core.model.ResultWrapper;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.reactive.filter.OrderedWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
+
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebExceptionHandler;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
@@ -35,6 +43,18 @@ public class AppConfig implements WebFluxConfigurer {
             public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
                 return chain.filter(exchange);
             }
+        };
+    }
+
+    @Bean
+    @Order(-2)
+    public WebExceptionHandler webExceptionHandler() {
+        return (exchange, ex) -> {
+            ServerHttpResponse response = exchange.getResponse();
+            byte[] bytes = JSON.toJSONBytes(ResultWrapper.asError(ex.getMessage()));
+            DataBuffer buffer = response.bufferFactory().wrap(bytes);
+            response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
+            return response.writeAndFlushWith(Mono.just(Mono.just(buffer)));
         };
     }
 
